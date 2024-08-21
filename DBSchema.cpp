@@ -5,6 +5,7 @@
 #include <variant>
 #include <unordered_map>
 #include "DB.h"
+#include "printing.hpp"
 
 using namespace std;
 using AllPermmittedTypes = variant<int,string,double,float,char,bool>;
@@ -17,6 +18,8 @@ using AllPermmittedTypes = variant<int,string,double,float,char,bool>;
 
 int main(){
     vector<DataBase> MaindDBHolder = {};
+    vector<int> arr = {1,2,3};
+    printArray<int>(&arr);
     return 0;
 
 }

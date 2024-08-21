@@ -18,15 +18,6 @@ using AllPermmittedTypes = variant<int,string,double,float,char,bool>;
 
 // create a db => connect to it=> create a table => create a column or a label then store the data inside of the table
 
-template <typename Y> void printArray(vector<Y> * arr){
-    cout << "[";
-    for(int i =0 ; i < arr.size(); i++){
-        cout << arr[i] << ",";
-    }
-    cout << "]" << endl;
-}
-
-
 class Column{
     public:
         string columnName;
@@ -79,7 +70,7 @@ class Table{
                 }
             }
             if(IsError){
-                unordered_map<string,AllPermmittedTypes> InsertedElement = CreateARow(**elementList);
+                unordered_map<string,AllPermmittedTypes> InsertedElement = this->CreateARow(**elementList);
                 RowList.push_back(InsertedElement);
             }else{
                 cout << "Please reenter the inserted row "<< endl;
@@ -88,15 +79,31 @@ class Table{
     }
 };
 
-
 class DataBase{
     public:
-        vector<Table> TableHolder ;
-    DataBase(){
+        vector<Table> TableHolder;
+        string DB_Name;
+    DataBase(string DB_name){
         TableHolder = {};
+        DB_Name = DB_name;
     }
     void createTable(string tableName){
         Table newTable = Table(tableName);
+        TableHolder.push_back(newTable);
+    }
+};
+
+class DBMS{
+    public:
+        vector<DataBase> DataBaseHolder;
+        unordered_map<string,int> pointer_location = {};
+        int currentDBPointer;
+    DBMS(){
+        DataBaseHolder = {};
+        currentDBPointer = 0;
+    }
+    void create_DataBase(string DB_Name){
+        DataBaseHolder.push_back(DataBase(DB_Name));
     }
 };
 
